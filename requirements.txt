@@ -33,7 +33,7 @@ pyOpenSSL==23.1.1
 queuelib==1.6.2
 requests==2.31.0
 requests-file==1.5.1
-Scrapy==2.9.0
+Scrapy==2.11.2
 service-identity==21.1.0
 six==1.16.0
 tldextract==3.4.4
