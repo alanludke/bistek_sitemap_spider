@@ -21,7 +21,7 @@ FORMATTED_TIMESTAMP = time.strftime("%H%M%S")
 class BistekSitemapSpider(scrapy.Spider):
     name = "bistek_sitemap_spider"
 
-    start_urls = ["https://www.bistek.com.br/super/sitemap.xml"]
+    start_urls = ["https://www.bistek.com.br/sitemap.xml"]
 
     create_dir_if_doesnt_exists(name, f"logs/{FORMATTED_DATE}/")
     create_dir_if_doesnt_exists(name, f"data/{FORMATTED_DATE}/")
@@ -40,7 +40,7 @@ class BistekSitemapSpider(scrapy.Spider):
         # data_dict_str = json.dumps(data_dict)
 
         market_name = "bistek"
-        initial_page = "https://www.bistek.com.br/super/"
+        initial_page = "https://www.bistek.com.br/"
         robots_page = "https://www.bistek.com.br/robots.txt"
         sitemap_page = response.url
 
