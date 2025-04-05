@@ -1,7 +1,7 @@
 import os
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-from bistek_sitemap_spider.spiders.bistek_sitemap_spider import BistekSitemapSpider
+from spiders.bistek_sitemap_spider import BistekSitemapSpider
 
 
 settings = get_project_settings()
