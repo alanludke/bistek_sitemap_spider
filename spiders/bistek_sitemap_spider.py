@@ -7,10 +7,11 @@ import re
 import sys
 from scrapy.loader import ItemLoader
 import xmltodict
-
+import os
 
 sys.path.append("..")
 from items import SitemapItem
+
 from utils import *
 
 
