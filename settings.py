@@ -104,6 +104,6 @@ LOG_LEVEL = "DEBUG"
 ITEM_PIPELINES = {
     "common.sitemap_pipelines.DefaultValuesPipeline": 0,
     "common.common_pipelines.AzureBlobStoragePipeline": 100,
-    "common.sitemap_pipelines.DatabaseWithoutValidationPipeline": 200,
-    "common.sitemap_pipelines.RemoveDuplicatesPipeline": 250
+    "common.sitemap_pipelines.DatabaseWithoutValidationPipeline": 200
+    # "common.sitemap_pipelines.RemoveDuplicatesPipeline": 250
 }

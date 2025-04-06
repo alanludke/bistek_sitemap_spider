@@ -46,15 +46,13 @@ class BistekSitemapSpider(scrapy.Spider):
         sitemap_page = response.url
 
         for each_item in data_dict["sitemapindex"]["sitemap"]:
-            # Converts "2024-09-16T18:39:29.865Z" to "16/09/2024 18:39:29"
-            last_mod_timestamp = datetime.strptime(each_item["lastmod"][:-5], "%Y-%m-%dT%H:%M:%S")
 
             item["market_name"] = self.name
             item["initial_page"] = initial_page
             item["robots_page"] = robots_page
             item["sitemap_page"] = sitemap_page
             item["loc"] = each_item["loc"]
-            item["last_mod"] = last_mod_timestamp.strftime("%d/%m/%Y %H:%M:%S")
-            item["date_extracted"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            item["last_mod"] = each_item["lastmod"]
+            item["date_extracted"] = datetime.now().isoformat()
 
             yield item
