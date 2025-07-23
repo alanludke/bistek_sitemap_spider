@@ -1,4 +1,11 @@
+
 # Scrapy settings for bistek_sitemap_spider project
+
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,6 +16,7 @@
 
 
 BOT_NAME = "bistek_sitemap_spider"
+
 
 # SPIDER_MODULES = ['bistek_sitemap_spider.spiders']
 # NEWSPIDER_MODULE = 'bistek_sitemap_spider.spiders'
@@ -23,18 +31,18 @@ NEWSPIDER_MODULE = "spiders"
 # ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-# CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 16
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
-# See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 1
+RANDOMIZE_DOWNLOAD_DELAY = True
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-# COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 # TELNETCONSOLE_ENABLED = False
@@ -97,13 +105,32 @@ NEWSPIDER_MODULE = "spiders"
 
 # ROBOTSTXT_OBEY = False
 
+# --- AZURE BLOB STORAGE SETTINGS ---
+# This setting enables or disables the pipeline
+AZURE_ENABLED = os.getenv("AZURE_ENABLED", "False").lower() in ('true', '1', 't')
+
+# Read credentials directly from environment variables
+AZURE_ACCOUNT_NAME = os.getenv("AZURE_ACCOUNT_NAME")
+AZURE_ACCOUNT_KEY = os.getenv("AZURE_ACCOUNT_KEY")
+# You can keep this dynamic or set it directly as an environment variable
+AZURE_CONTAINER_NAME = BOT_NAME.replace("_", "-")
+
+# --- DATABASE SETTINGS ---
+DATABASE_ENABLED = os.getenv("DATABASE_ENABLED", "False").lower() in ('true', '1', 't')
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+DB_USERNAME = os.getenv("DB_USERNAME")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
+DB_TABLE_NAME = BOT_NAME
+
+
 LOG_ENABLED = True
 LOG_LEVEL = "DEBUG"
 
 
 ITEM_PIPELINES = {
-    "common.sitemap_pipelines.DefaultValuesPipeline": 0,
-    "common.common_pipelines.AzureBlobStoragePipeline": 100,
-    "common.sitemap_pipelines.DatabaseWithoutValidationPipeline": 200
-    # "common.sitemap_pipelines.RemoveDuplicatesPipeline": 250
+    "sitemap_pipelines.DefaultValuesPipeline": 0,
+    "sitemap_pipelines.AzureBlobStoragePipeline": 100,
+    "sitemap_pipelines.DatabaseWithoutValidationPipeline": 200
 }

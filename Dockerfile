@@ -1,25 +1,21 @@
+# Use uma imagem Python leve e oficial
 FROM python:3.9-slim
 
-# Define o diretório de trabalho da imagem Docker
-WORKDIR /app
+# Define o diretório de trabalho dentro do container
+WORKDIR /usr/src/app
 
-# Define a variável com o nome do diretório
-ARG SPIDER_DIR=bistek_sitemap_spider
+# --- Instalação de Dependências ---
+# Copia apenas o arquivo de requerimentos primeiro para aproveitar o cache do Docker.
+# Esta camada só será reconstruída se o requirements.txt mudar.
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia o arquivo requirements.txt para o diretório de trabalho
-COPY $SPIDER_DIR $SPIDER_DIR
+# --- Cópia do Código do Spider ---
+# Copia todo o diretório do projeto para dentro do container
+COPY . .
 
-# Instala as dependências do projeto
-RUN pip install --no-cache-dir -r $SPIDER_DIR/requirements.txt
+# --- Comando de Execução ---
+# Define o comando padrão para rodar o sitemap spider quando o container iniciar.
+# Este é o comando que você usaria no seu terminal.
+CMD ["scrapy", "crawl", "bistek_sitemap_spider"]
 
-# Copia o código-fonte do projeto para o diretório de trabalho
-COPY common common
-
-# Instala o pacote 'common' usando o arquivo setup.py
-RUN python -m pip install --no-cache-dir -e common
-
-# Define o diretório de trabalho específico
-WORKDIR /app/$SPIDER_DIR
-
-# Define o comando padrão a ser executado quando o contêiner for iniciado
-CMD ["python", "app.py"]
