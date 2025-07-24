@@ -132,5 +132,5 @@ LOG_LEVEL = "DEBUG"
 ITEM_PIPELINES = {
     "sitemap_pipelines.DefaultValuesPipeline": 0,
     "sitemap_pipelines.AzureBlobStoragePipeline": 100,
-    "sitemap_pipelines.DatabaseWithoutValidationPipeline": 200
+    "sitemap_pipelines.SitemapPostgresPipeline": 200
 }

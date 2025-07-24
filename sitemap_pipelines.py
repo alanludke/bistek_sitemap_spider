@@ -127,7 +127,7 @@ class AzureBlobStoragePipeline:
 
 
 
-class DatabaseWithoutValidationPipeline:
+class SitemapPostgresPipeline:
     def __init__(self, host, database, user, password, port, table):
         self.host = host
         self.database = database

@@ -1,6 +1,5 @@
 import scrapy
 from itemloaders.processors import TakeFirst, MapCompose
-from w3lib.html import remove_tags
 
 def clean_text(value):
     """Uma função de limpeza simples para remover espaços em branco."""
